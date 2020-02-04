@@ -133,7 +133,12 @@
   (company-selection-wrap-around t)
   (company-tooltip-align-annotations t)
   (company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
-                       company-echo-metadata-frontend)))
+                       company-echo-metadata-frontend))
+  :config
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "<return>") nil)
+    (define-key company-active-map (kbd "RET") nil)
+    (define-key company-active-map (kbd "SPC") nil)))
 
 (use-package company-posframe
   :custom
