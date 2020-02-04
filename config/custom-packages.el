@@ -8,10 +8,27 @@
 
 (use-package evil
   :init
-  (setq evil-want-C-u-scroll t
+  (setq evil-want-abbrev-expand-on-insert-exit nil
+        evil-want-C-i-jump nil
         evil-want-keybinding nil
-        evil-shift-width fp/indent-width)
-  :hook (after-init . evil-mode))
+        evil-search-module 'evil-search
+        evil-ex-search-vim-style-regexp t)
+  :config
+  (define-key evil-motion-state-map (kbd "TAB") nil)
+  (add-to-list 'evil-emacs-state-modes 'magit-mode)
+  (add-to-list 'evil-emacs-state-modes 'magit-blame-mode)
+  (add-to-list 'evil-emacs-state-modes 'xref--xref-buffer-mode)
+  (evil-mode))
+
+(use-package evil-surround
+  :after evil
+  :config (global-evil-surround-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-company-use-tng nil)
+  (evil-collection-init))
 
 (use-package evil-commentary
   :after evil
@@ -186,6 +203,12 @@
 
 (use-package rainbow-mode
   :hook (web-mode . rainbow-mode))
+
+(use-package all-the-icons
+  :config (setq all-the-icons-scale-factor 1.0))
+
+(use-package all-the-icons-ivy
+  :hook (after-init . all-the-icons-ivy-setup))
 
 (use-package exec-path-from-shell
   :config
