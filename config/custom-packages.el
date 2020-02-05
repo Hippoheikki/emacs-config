@@ -16,7 +16,7 @@
   (setq evil-want-abbrev-expand-on-insert-exit nil
         evil-want-C-i-jump nil
         evil-want-keybinding nil
-        evil-search-module 'evil-search
+        evil-search-module 'isearch
         evil-ex-search-vim-style-regexp t)
   :config
   (define-key evil-motion-state-map (kbd "TAB") nil)
