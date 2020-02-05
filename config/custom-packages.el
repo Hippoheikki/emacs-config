@@ -98,7 +98,7 @@
         ivy-posframe-height-alist '((swiper . 30)
                                     (t . 10))
         ivy-posframe-parameters '((internal-border-width . 10)))
-  (setq ivy-posframe-width 100)
+  (setq ivy-posframe-width 80)
   (ivy-posframe-mode +1))
 
 (use-package swiper
@@ -163,7 +163,18 @@
   (lsp-prefer-flymake nil)
   (lsp-keep-workspace-alive nil))
 
-(use-package typescript-mode)
+(use-package lsp-ui
+  :after lsp
+  :custom
+  (lsp-ui-doc-delay 0.5)
+  (lsp-ui-sideline-enable nil))
+
+(use-package lsp-ivy)
+
+(use-package typescript-mode
+  :after (company flycheck lsp-ui)
+  :config
+  (flycheck-add-next-checker 'lsp-ui 'typescript-tslint))
 
 (use-package company-lsp
   :commands company-lsp
