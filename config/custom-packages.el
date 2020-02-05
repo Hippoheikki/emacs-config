@@ -167,7 +167,9 @@
   :after lsp
   :custom
   (lsp-ui-doc-delay 0.5)
-  (lsp-ui-sideline-enable nil))
+  (lsp-ui-sideline-enable nil)
+  :config
+  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 (use-package lsp-ivy)
 

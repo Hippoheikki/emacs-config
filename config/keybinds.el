@@ -56,7 +56,7 @@
    ;; Buffer actions
    "b"  '(:ignore t :which-key "Buffers")
    "bb" '(ivy-switch-buffer :which-key "Buffer list (ivy)")
-   "bk" '(kill-buffer :which-key "Kill buffer")
+   "bk" '(kill-current-buffer :which-key "Kill buffer")
 
    ;; Window actions
    "w"  '(:ignore t :which-key "Window management")
@@ -84,6 +84,10 @@
    ;; Quit action
    "q"  '(:ignore t :which-key "Quit actions")
    "qq" '(kill-emacs :which-key "Kill emacs")
+
+   "t"  '(:ignore t :which-key "Toggle/settings")
+   "tl" '(global-display-line-numbers-mode :which-key "Toggle line number mode")
+   "tw" '(global-whitespace-mode :which-key "Toggle whitespace mode")
    ))
 
 (provide 'keybinds)
