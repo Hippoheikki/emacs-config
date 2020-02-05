@@ -21,8 +21,6 @@
         use-package-expand-minimally t))
 
 (use-package emacs
-  :preface
-  (defvar fp/indent-width 4)
   :config
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -31,9 +29,7 @@
   (fset 'yes-or-no-p 'y-or-n-p)
 
   (setq ring-bell-function 'ignore)
-  (setq-default line-spacing 3
-                indent-tabs-mode nil
-                tab-width fp/indent-width))
+  (setq-default indent-tabs-mode nil))
 
 
 (use-package "startup"
@@ -72,7 +68,7 @@
   :ensure nil
   :custom
   (auto-revert-interval 2)
-  ;; (auto-revert-check-vc-info t)
+  (auto-revert-check-vc-info t)
   (global-auto-revert-non-file-buffers t)
   (auto-revert-verbose nil)
   :config
@@ -83,32 +79,12 @@
   :custom
   (eldoc-idle-delay 0.4))
 
-(use-package js
-  :ensure nil
-  :mode ("\\.jsx?\\'" . js-mode)
-  :custom
-  (js-indent-level fp/indent-width))
-
 (use-package cc-vars
   :ensure nil
   :custom
   (c-default-style '((java-mode . "java")
                      (awk-mode  . "awk")
-                     (other     . "k&r")))
-  :config
-  (setq-default c-basic-offset fp/indent-width))
-
-(use-package prolog
-  :ensure nil
-  :mode (("\\.pl\\'" . prolog-mode))
-  :custom
-  (prolog-indent-width fp/indent-width))
-
-(use-package python
-  :ensure nil
-  :custom
-  (python-indent-offset fp/indent-width)
-  (python-shell-interpreter "python3"))
+                     (other     . "k&r"))))
 
 (use-package mwheel
   :ensure nil
@@ -149,12 +125,6 @@
   (delete-by-moving-to-trash t)
   :config
   (put 'dired-find-alternate-file 'disabled nil))
-
-(use-package display-line-numbers
-  :ensure nil
-  :hook (prog-mode . display-line-numbers-mode)
-  :config
-  (setq-default display-line-numbers-width 3))
 
 (provide 'startup)
 ;;; startup.el ends here

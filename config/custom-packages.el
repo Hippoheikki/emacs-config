@@ -81,7 +81,6 @@
 (use-package ivy
   :hook (after-init . ivy-mode)
   :custom
-  (ivy-height 15)
   (ivy-display-style nil)
   (ivy-re-builders-alist '((counsel-rg            . ivy--regex-plus)
                            (counsel-projectile-rg . ivy--regex-plus)
@@ -98,16 +97,6 @@
   :custom
   (swiper-action-recenter t)
   (swiper-goto-start-of-match t))
-
-(use-package ivy-rich
-  :config
-  (ivy-rich-mode +1)
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
-
-(use-package wgrep
-  :commands wgrep-change-to-wgrep-mode
-  :custom
-  (wgrep-auto-save-buffer t))
 
 (use-package prescient
   :custom
@@ -128,31 +117,6 @@
   (ivy-prescient-retain-classic-highlighting t)
   :config
   (ivy-prescient-mode +1))
-
-(use-package company-prescient
-  :after (prescient company)
-  :config
-  (company-prescient-mode +1))
-
-;; Programming language support and utilities
-
-(use-package lsp-mode
-  :hook ((js-mode         ; ts-ls (tsserver wrapper)
-          typescript-mode ; ts-ls (tsserver wrapper)
-          ) . lsp)
-  :commands lsp
-  :custom
-  (lsp-prefer-flymake nil)
-  (lsp-enable-symbol-highlighting nil)
-  (lsp-enable-on-type-formatting nil)
-  (lsp-signature-auto-activate nil))
-
-(use-package typescript-mode)
-
-(use-package company-lsp
-  :commands company-lsp
-  :custom
-  (company-lsp-cache-candidates 'auto))
 
 (use-package company
   :hook (prog-mode . company-mode)
@@ -176,19 +140,34 @@
   :config
   (company-posframe-mode +1))
 
+(use-package company-prescient
+  :after (prescient company)
+  :config
+  (company-prescient-mode +1))
+
+(use-package lsp-mode
+  :hook ((js-mode         ; ts-ls (tsserver wrapper)
+          typescript-mode ; ts-ls (tsserver wrapper)
+          ) . lsp)
+  :commands lsp
+  :custom
+  (lsp-prefer-flymake nil)
+  (lsp-keep-workspace-alive nil))
+
+(use-package typescript-mode)
+
+(use-package company-lsp
+  :commands company-lsp
+  :custom
+  (company-lsp-cache-candidates 'auto))
+
 (use-package flycheck
   :diminish
   :hook (prog-mode . flycheck-mode)
   :custom
-  (flycheck-check-syntax-automatically '(save mode-enabled newline))
-  (flycheck-display-errors-delay 0.1)
-  (flycheck-python-flake8-executable "python3")
-  (flycheck-flake8rc "~/.config/flake8")
-  :config ; prefer flake8 for python & eslint for javascript exclusively
-  (setq-default flycheck-disabled-checkers '(python-pylint
-                                             python-pycompile
-                                             javascript-jshint
-                                             javascript-standard)))
+  (flycheck-display-errors 0.25)
+  (flycheck-check-syntax-automatically '(save mode-enabled)))
+
 (use-package flycheck-posframe
   :after flycheck
   :hook (flycheck-mode . flycheck-posframe-mode)
@@ -198,11 +177,7 @@
 (use-package web-mode
   :mode (("\\.html?\\'" . web-mode)
          ("\\.css\\'"   . web-mode)
-         ("\\.json\\'"  . web-mode))
-  :custom
-  (web-mode-markup-indent-offset fp/indent-width)
-  (web-mode-code-indent-offset fp/indent-width)
-  (web-mode-css-indent-offset fp/indent-width))
+         ("\\.json\\'"  . web-mode)))
 
 (use-package format-all
   :preface
