@@ -2,31 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
-(defvar file-name-handler-alist-original file-name-handler-alist)
-
-
 (when (memq window-system '(mac ns x))
   (setq mac-option-modifier 'meta)
   (setq mac-command-modifier 'super))
-
-(setq gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.6
-      file-name-handler-alist nil
-      site-run-file nil)
-
-(defvar fp/gc-cons-threshold 20000000)
-
-(add-hook 'emacs-startup-hook #'(lambda ()
-                                  (setq gc-cons-threshold fp/gc-cons-threshold
-                                        gc-cons-percentage 0.1
-                                        file-name-handler-alist file-name-handler-alist-original)))
-
-(add-hook 'minibuffer-setup-hook #'(lambda ()
-                                     (setq gc-cons-threshold most-positive-fixnum)))
-
-(add-hook 'minibuffer-exit-hook #'(lambda ()
-                                    (garbage-collect)
-                                    (setq gc-cons-threshold fp/gc-cons-threshold)))
 
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
@@ -52,7 +30,6 @@
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
-  (setq compilation-scroll-output t)
   (setq default-directory "~/")
   (setq ring-bell-function 'ignore)
   (setq-default line-spacing 3
@@ -68,7 +45,7 @@
 (use-package cus-edit
   :ensure nil
   :custom
-  (custom-file "~/.emacs.d/custom.el"))
+  (custom-file "~/.emacs.d/to-be-dumped.el"))
 
 (use-package scroll-bar
   :ensure nil
@@ -111,19 +88,7 @@
   :ensure nil
   :mode ("\\.jsx?\\'" . js-mode)
   :custom
-  (js-indent-level fp/indent-width)
-  :config
-  (add-hook 'flycheck-mode-hook
-            #'(lambda ()
-                (let* ((root (locate-dominating-file
-                              (or (buffer-file-name) default-directory)
-                              "node_modules"))
-                       (eslint
-                        (and root
-                             (expand-file-name "node_modules/.bin/eslint"
-                                               root))))
-                  (when (and eslint (file-executable-p eslint))
-                    (setq-local flycheck-javascript-eslint-executable eslint))))))
+  (js-indent-level fp/indent-width))
 
 (use-package cc-vars
   :ensure nil
@@ -185,11 +150,6 @@
   (delete-by-moving-to-trash t)
   :config
   (put 'dired-find-alternate-file 'disabled nil))
-
-(use-package saveplace
-  :ensure nil
-  :config
-  (save-place-mode +1))
 
 (use-package display-line-numbers
   :ensure nil
