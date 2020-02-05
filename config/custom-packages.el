@@ -82,15 +82,26 @@
   :hook (after-init . ivy-mode)
   :custom
   (ivy-display-style nil)
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d) ")
+  (ivy-initial-inputs-alist nil)
   (ivy-re-builders-alist '((counsel-rg            . ivy--regex-plus)
                            (counsel-projectile-rg . ivy--regex-plus)
                            (counsel-ag            . ivy--regex-plus)
                            (counsel-projectile-ag . ivy--regex-plus)
                            (swiper                . ivy--regex-plus)
-                           (t                     . ivy--regex-fuzzy)))
-  (ivy-use-virtual-buffers t)
-  (ivy-count-format "(%d/%d) ")
-  (ivy-initial-inputs-alist nil))
+                           (t                     . ivy--regex-fuzzy))))
+
+(use-package ivy-posframe
+  :after ivy
+  :diminish
+  :config
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center))
+        ivy-posframe-height-alist '((swiper . 30)
+                                    (t . 10))
+        ivy-posframe-parameters '((internal-border-width . 10)))
+  (setq ivy-posframe-width 100)
+  (ivy-posframe-mode +1))
 
 (use-package swiper
   :after ivy
@@ -196,6 +207,13 @@
 
 (use-package rainbow-mode
   :hook (web-mode . rainbow-mode))
+
+(use-package solaire-mode
+  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+         (minibuffer-setup . solaire-mode-in-minibuffer))
+  :config
+  (solaire-global-mode +1)
+  (solaire-mode-swap-bg))
 
 (use-package all-the-icons
   :config (setq all-the-icons-scale-factor 1.0))
