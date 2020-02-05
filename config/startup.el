@@ -29,8 +29,8 @@
   (fset 'yes-or-no-p 'y-or-n-p)
 
   (setq ring-bell-function 'ignore)
-  (setq-default indent-tabs-mode nil))
-
+  (setq-default line-spacing 5
+                indent-tabs-mode nil))
 
 (use-package "startup"
   :ensure nil
