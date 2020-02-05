@@ -2,6 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 (use-package doom-themes
   :config
   (load-theme 'doom-solarized-dark t))
@@ -38,7 +43,6 @@
 (use-package evil-magit)
 
 (use-package magit
-  :bind ("C-x g" . magit-status)
   :config
   (add-hook 'with-editor-mode-hook #'evil-insert-state))
 
@@ -215,11 +219,6 @@
 
 (use-package all-the-icons-ivy
   :hook (after-init . all-the-icons-ivy-setup))
-
-(use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
 
 (use-package diminish
   :demand t)
