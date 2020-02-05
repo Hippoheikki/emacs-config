@@ -30,7 +30,6 @@
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
-  (setq default-directory "~/")
   (setq ring-bell-function 'ignore)
   (setq-default line-spacing 3
                 indent-tabs-mode nil
