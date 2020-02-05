@@ -52,6 +52,7 @@
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
+  (setq compilation-scroll-output t)
   (setq default-directory "~/")
   (setq ring-bell-function 'ignore)
   (setq-default line-spacing 3
@@ -77,6 +78,7 @@
 (use-package simple
   :ensure nil
   :config
+  (line-number-mode +1)
   (column-number-mode +1))
 
 (use-package delsel
@@ -94,7 +96,7 @@
   :ensure nil
   :custom
   (auto-revert-interval 2)
-  (auto-revert-check-vc-info t)
+  ;; (auto-revert-check-vc-info t)
   (global-auto-revert-non-file-buffers t)
   (auto-revert-verbose nil)
   :config

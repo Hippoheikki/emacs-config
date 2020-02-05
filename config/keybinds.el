@@ -2,6 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
+(defun fp/reload-conf ()
+  "Evaluate init.el file."
+  (interactive)
+  (load-file (concat user-emacs-directory "init.el")))
+
 (use-package which-key
   :config
   (setq which-key-idle-delay 0.5)
@@ -71,6 +76,10 @@
    "cs" '(ivy-lsp-workspace-symbol :which-key "Find symbol")
    "cS" '(ivy-lsp-global-workspace-symbol :which-key "Find symbol (global)")
    "cf" '(format-document :which-key "Format buffer")
+
+   "r"  '(:ignore t :which-key "Revert/Reload actions")
+   "rb" '(revert-buffer :which-key "Revert buffer")
+   "rc" '(fp/reload-conf :which-key "Reload config")
    ))
 
 (provide 'keybinds)

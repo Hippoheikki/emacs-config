@@ -165,6 +165,7 @@
   (company-posframe-mode +1))
 
 (use-package flycheck
+  :diminish
   :hook (prog-mode . flycheck-mode)
   :custom
   (flycheck-check-syntax-automatically '(save mode-enabled newline))
@@ -201,6 +202,11 @@
       (format-all-buffer)))
   (defalias 'format-document #'fp/format-code))
 
+(use-package editorconfig
+  :diminish
+  :config
+  (editorconfig-mode 1))
+
 (use-package rainbow-mode
   :hook (web-mode . rainbow-mode))
 
@@ -214,6 +220,9 @@
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+(use-package diminish
+  :demand t)
 
 (provide 'custom-packages)
 ;;; custom-packages.el ends here
