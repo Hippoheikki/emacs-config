@@ -11,6 +11,13 @@
   :config
   (load-theme 'doom-solarized-dark t))
 
+(use-package dashboard
+  :custom
+  (dashboard-startup-banner 'logo)
+  (dashboard-items '((projects . 5)))
+  :config
+  (dashboard-setup-startup-hook))
+
 (use-package evil
   :init
   (setq evil-want-abbrev-expand-on-insert-exit nil

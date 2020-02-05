@@ -7,6 +7,11 @@
   (interactive)
   (load (expand-file-name (concat user-emacs-directory "init.el"))))
 
+(defun fp/kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
 (use-package which-key
   :config
   (setq which-key-idle-delay 0.5)
@@ -56,7 +61,9 @@
    ;; Buffer actions
    "b"  '(:ignore t :which-key "Buffers")
    "bb" '(ivy-switch-buffer :which-key "Buffer list (ivy)")
-   "bk" '(kill-current-buffer :which-key "Kill buffer")
+   "bk" '(:ignore t :which-key "Buffer kill actions")
+   "bkc" '(kill-current-buffer :which-key "Kill buffer")
+   "bko" '(fp/kill-other-buffers :which-key "Kill all other buffers")
 
    ;; Window actions
    "w"  '(:ignore t :which-key "Window management")
