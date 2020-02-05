@@ -209,6 +209,23 @@
          ("\\.css\\'"   . web-mode)
          ("\\.json\\'"  . web-mode)))
 
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :custom
+  (doom-modeline-height 25)
+  (doom-modeline-bar-width 3)
+  (doom-modeline-buffer-file-name-style 'relative-to-project)
+  (doom-modeline-icon t)
+  (doom-modeline-buffer-state-icon nil)
+  (doom-modeline-modal-icon nil)
+  :config
+  (doom-modeline-def-modeline 'simple
+    '(bar modals buffer-info buffer-position)
+    '(misc-info lsp buffer-encoding major-mode vcs))
+  (defun fp/setup-custom-doom-modeline ()
+    (doom-modeline-set-modeline 'simple 'default))
+    (add-hook 'doom-modeline-mode-hook 'fp/setup-custom-doom-modeline))
+
 (use-package format-all
   :preface
   (defun fp/format-code ()
