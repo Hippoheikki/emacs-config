@@ -28,6 +28,11 @@
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
+  (setq backup-directory-alist
+        `(("." . ,(concat user-emacs-directory "backups"))))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+  (setq create-lockfiles nil)
   (setq ring-bell-function 'ignore)
   (setq-default line-spacing 5
                 indent-tabs-mode nil))
