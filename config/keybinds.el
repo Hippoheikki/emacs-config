@@ -80,6 +80,10 @@
    "r"  '(:ignore t :which-key "Revert/Reload actions")
    "rb" '(revert-buffer :which-key "Revert buffer")
    "rc" '(fp/reload-conf :which-key "Reload config")
+
+   ;; Quit action
+   "q"  '(:ignore t :which-key "Quit actions")
+   "qq" '(kill-emacs :which-key "Kill emacs")
    ))
 
 (provide 'keybinds)
