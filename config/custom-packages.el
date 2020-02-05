@@ -40,8 +40,6 @@
   :config
   (evil-commentary-mode +1))
 
-(use-package evil-magit)
-
 (use-package magit
   :config
   (add-hook 'with-editor-mode-hook #'evil-insert-state))
