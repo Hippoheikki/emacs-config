@@ -5,7 +5,7 @@
 (defun fp/reload-conf ()
   "Evaluate init.el file."
   (interactive)
-  (load-file (concat user-emacs-directory "init.el")))
+  (load (expand-file-name (concat user-emacs-directory "init.el"))))
 
 (use-package which-key
   :config

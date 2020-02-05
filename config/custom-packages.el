@@ -61,6 +61,14 @@
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
     nil nil 'bottom))
 
+(use-package projectile
+  :diminish
+  :config
+  (setq projectile-sort-order 'recentf
+        projectile-indexing-method 'hybrid
+        projectile-completion-system 'ivy)
+  (projectile-mode))
+
 (use-package counsel
   :hook (ivy-mode . counsel-mode)
   :custom
@@ -219,6 +227,9 @@
 
 (use-package all-the-icons-ivy
   :hook (after-init . all-the-icons-ivy-setup))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package diminish
   :demand t)
