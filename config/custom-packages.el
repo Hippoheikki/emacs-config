@@ -183,7 +183,15 @@
   :after flycheck
   :hook (flycheck-mode . flycheck-posframe-mode)
   :custom
-  (flycheck-posframe-position 'window-bottom-left-corner))
+  (flycheck-posframe-position 'window-bottom-left-corner)
+  (flycheck-posframe-warning-prefix "⚠")
+  (flycheck-posframe-info-prefix "... ")
+  (flycheck-posframe-error-prefix "✕ ")
+  :config
+  (add-hook 'flycheck-posframe-inhibit-functions
+            #'company--active-p
+            #'evil-insert-state-p
+            #'evil-replace-state-p))
 
 (use-package web-mode
   :mode (("\\.html?\\'" . web-mode)
