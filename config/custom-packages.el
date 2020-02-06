@@ -293,5 +293,7 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
+(use-package default-text-scale)
+
 (provide 'custom-packages)
 ;;; custom-packages.el ends here

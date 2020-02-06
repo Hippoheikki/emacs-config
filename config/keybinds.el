@@ -84,6 +84,7 @@
    "cS" '(ivy-lsp-global-workspace-symbol :which-key "Find symbol (global)")
    "cf" '(format-all-buffer :which-key "Format buffer")
 
+   ;; Revert/reload actions
    "r"  '(:ignore t :which-key "Revert/Reload actions")
    "rb" '(revert-buffer :which-key "Revert buffer")
    "rc" '(fp/reload-conf :which-key "Reload config")
@@ -95,6 +96,9 @@
    "t"  '(:ignore t :which-key "Toggle/settings")
    "tl" '(global-display-line-numbers-mode :which-key "Toggle line number mode")
    "tw" '(global-whitespace-mode :which-key "Toggle whitespace mode")
+   "ti" '(default-text-scale-increase :which-key "Increase text scale")
+   "td" '(default-text-scale-decrease :which-key "Decrease text scale")
+   "tr" '(default-text-scale-reset :which-key "Reset text scale")
    ))
 
 (provide 'keybinds)
