@@ -109,7 +109,10 @@
   :custom
   (initial-frame-alist '((fullscreen . maximized)))
   :config
-  (blink-cursor-mode -1))
+  (blink-cursor-mode -1)
+  (when (member "Hack" (font-family-list))
+    (message "Font exists on system")
+    (set-frame-font "Hack-12" t t)))
 
 (use-package ediff
   :ensure nil

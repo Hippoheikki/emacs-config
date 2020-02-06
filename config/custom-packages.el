@@ -233,7 +233,7 @@
   :hook (flycheck-mode . flycheck-posframe-mode)
   :custom
   (flycheck-posframe-position 'window-bottom-left-corner)
-  (flycheck-posframe-warning-prefix "⚠")
+  (flycheck-posframe-warning-prefix "⚠ ")
   (flycheck-posframe-info-prefix "... ")
   (flycheck-posframe-error-prefix "✕ ")
   :config
@@ -287,6 +287,10 @@
   :config
   (solaire-global-mode +1)
   (solaire-mode-swap-bg))
+
+(use-package beacon
+  :config
+  (beacon-mode 1))
 
 (use-package all-the-icons
   :config (setq all-the-icons-scale-factor 1.0))
