@@ -69,7 +69,6 @@
     nil nil 'bottom))
 
 (use-package projectile
-  :diminish
   :config
   (setq projectile-sort-order 'recentf
         projectile-indexing-method 'hybrid
@@ -125,7 +124,6 @@
 
 (use-package ivy-posframe
   :after ivy
-  :diminish
   :config
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center))
         ivy-posframe-height-alist '((swiper . 30)
@@ -197,9 +195,16 @@
   (lsp-keep-workspace-alive nil))
 
 (use-package lsp-ui
-  :after lsp
+  :hook (lsp-mode . lsp-ui-mode)
+  :init
+  (add-hook 'lsp-ui-mode-hook
+            (defun +lsp-init-ui-flycheck ()
+              "Sets up flycheck-mode."
+              (require 'flycheck nil t)
+              (require 'lsp-ui-flycheck)
+              (lsp-ui-flycheck-enable t)))
   :custom
-  (lsp-ui-doc-delay 0.5)
+  (lsp-ui-doc-enable nil)
   (lsp-ui-sideline-enable nil)
   :config
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
@@ -217,11 +222,11 @@
   (company-lsp-cache-candidates 'auto))
 
 (use-package flycheck
-  :diminish
-  :hook (prog-mode . flycheck-mode)
   :custom
   (flycheck-display-errors 0.25)
-  (flycheck-check-syntax-automatically '(save mode-enabled)))
+  (flycheck-check-syntax-automatically '(save mode-enabled))
+  :config
+  (global-flycheck-mode +1))
 
 (use-package flycheck-posframe
   :after flycheck
@@ -270,7 +275,6 @@
   (defalias 'format-document #'fp/format-code))
 
 (use-package editorconfig
-  :diminish
   :config
   (editorconfig-mode 1))
 
@@ -292,9 +296,6 @@
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package diminish
-  :demand t)
 
 (provide 'custom-packages)
 ;;; custom-packages.el ends here
