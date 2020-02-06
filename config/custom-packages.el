@@ -264,15 +264,7 @@
     (doom-modeline-set-modeline 'simple 'default))
     (add-hook 'doom-modeline-mode-hook 'fp/setup-custom-doom-modeline))
 
-(use-package format-all
-  :preface
-  (defun fp/format-code ()
-    "Auto-format whole buffer."
-    (interactive)
-    (if (derived-mode-p 'prolog-mode)
-        (prolog-indent-buffer)
-      (format-all-buffer)))
-  (defalias 'format-document #'fp/format-code))
+(use-package format-all)
 
 (use-package editorconfig
   :config

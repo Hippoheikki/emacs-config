@@ -82,7 +82,7 @@
    "cr" '(xref-find-references :which-key "Find references")
    "cs" '(ivy-lsp-workspace-symbol :which-key "Find symbol")
    "cS" '(ivy-lsp-global-workspace-symbol :which-key "Find symbol (global)")
-   "cf" '(format-document :which-key "Format buffer")
+   "cf" '(format-all-buffer :which-key "Format buffer")
 
    "r"  '(:ignore t :which-key "Revert/Reload actions")
    "rb" '(revert-buffer :which-key "Revert buffer")
