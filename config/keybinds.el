@@ -42,6 +42,7 @@
    "ps" '(projectile-ripgrep :which-key "Search project")
    "pi" '(projectile-invalidate-cache :which-key "Invalidate cache")
    "pa" '(projectile-add-known-project :which-key "Add project")
+   "pr" '(projectile-remove-known-project :which-key "Remove project")
 
    ;; Search actions
    "s"  '(:ignore t :which-key "Search")

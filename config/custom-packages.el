@@ -71,7 +71,7 @@
 (use-package projectile
   :config
   (setq projectile-sort-order 'recentf
-        projectile-indexing-method 'hybrid
+        projectile-indexing-method 'alien
         projectile-completion-system 'ivy)
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
   (add-to-list 'projectile-globally-ignored-directories "*libs")
