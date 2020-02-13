@@ -73,6 +73,8 @@
   (setq projectile-sort-order 'recentf
         projectile-indexing-method 'hybrid
         projectile-completion-system 'ivy)
+  (add-to-list 'projectile-globally-ignored-directories "*node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "*libs")
   (projectile-mode))
 
 (use-package counsel
