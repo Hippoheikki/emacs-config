@@ -9,7 +9,7 @@
 
 (use-package doom-themes
   :config
-  (load-theme 'doom-solarized-dark t))
+  (load-theme 'doom-moonlight t))
 
 (use-package dashboard
   :custom
