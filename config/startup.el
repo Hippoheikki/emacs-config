@@ -108,7 +108,11 @@
   :ensure nil
   :custom
   (initial-frame-alist '((fullscreen . maximized)))
+  (ns-use-proxy-icon nil)
+  (frame-title-format nil)
   :config
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (blink-cursor-mode -1)
   (when (member "Hack" (font-family-list))
     (message "Font exists on system")

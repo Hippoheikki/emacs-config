@@ -30,6 +30,7 @@
   (x-underline-at-descent-line t)
   (centaur-tabs-style "bar")
   :config
+  (centaur-tabs-headline-match)
   (centaur-tabs-mode t))
 
 (use-package evil
