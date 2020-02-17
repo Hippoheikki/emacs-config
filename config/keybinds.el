@@ -77,6 +77,9 @@
    "wk" '(evil-window-up :which-key "Move to up window")
    "wl" '(evil-window-right :which-key "Move to right window")
 
+   "w <right>" '(centaur-tabs-forward :which-key "Move to next tab")
+   "w <left>"  '(centaur-tabs-backward :which-key "Move to previous tab")
+
    ;; Code actions
    "c"  '(:ignore t :which-key "Code actions")
    "cd" '(xref-find-definitions :which-key "Find definitions")

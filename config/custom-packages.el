@@ -18,6 +18,20 @@
   :config
   (dashboard-setup-startup-hook))
 
+(use-package centaur-tabs
+  :demand
+  :hook
+  (dired-mode . centaur-tabs-local-mode)
+  :custom
+  (centaur-tabs-height 32)
+  (centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-set-bar 'under)
+  (x-underline-at-descent-line t)
+  (centaur-tabs-style "bar")
+  :config
+  (centaur-tabs-mode t))
+
 (use-package evil
   :init
   (setq evil-want-abbrev-expand-on-insert-exit nil
