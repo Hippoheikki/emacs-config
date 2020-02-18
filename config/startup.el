@@ -26,6 +26,8 @@
   (menu-bar-mode -1)
   (global-hl-line-mode t)
 
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
   (fset 'yes-or-no-p 'y-or-n-p)
 
   (setq backup-directory-alist

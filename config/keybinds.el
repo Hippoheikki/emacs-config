@@ -98,7 +98,7 @@
    "qq" '(kill-emacs :which-key "Kill emacs")
 
    "t"  '(:ignore t :which-key "Toggle/settings")
-   "tl" '(global-display-line-numbers-mode :which-key "Toggle line number mode")
+   ;; "tl" '(global-display-line-numbers-mode :which-key "Toggle line number mode")
    "tw" '(global-whitespace-mode :which-key "Toggle whitespace mode")
    "ti" '(default-text-scale-increase :which-key "Increase text scale")
    "td" '(default-text-scale-decrease :which-key "Decrease text scale")
