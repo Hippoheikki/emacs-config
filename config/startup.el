@@ -49,11 +49,6 @@
   :custom
   (custom-file "~/.emacs.d/to-be-dumped.el"))
 
-(use-package scroll-bar
-  :ensure nil
-  :config
-  (scroll-bar-mode -1))
-
 (use-package simple
   :ensure nil
   :config
@@ -115,7 +110,9 @@
   :config
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
+
   (blink-cursor-mode -1)
+
   (when (member "Hack" (font-family-list))
     (message "Font exists on system")
     (set-frame-font "Hack-12" t t)))
