@@ -7,9 +7,14 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-(use-package doom-themes
+(use-package kaolin-themes
+  :custom
+  (kaolin-themes-underline-wave nil)
+  (kaolin-themes-hl-line-colored t)
+  (kaolin-themes-distinct-fringe t)
+  (kaolin-themes-distinct-company-scrollbar t)
   :config
-  (load-theme 'doom-moonlight t))
+  (load-theme 'kaolin-temple t))
 
 (use-package dashboard
   :custom
