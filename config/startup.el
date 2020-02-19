@@ -21,6 +21,8 @@
         use-package-expand-minimally t))
 
 (use-package emacs
+  :preface
+  (defvar fp/gc-threshold 100000000)
   :config
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -35,7 +37,9 @@
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
   (setq create-lockfiles nil)
-  (setq ring-bell-function 'ignore)
+  (setq ring-bell-function 'ignore
+        gc-cons-threshold fp/gc-threshold
+        gc-cons-percentage 0.1)
   (setq-default line-spacing 5
                 indent-tabs-mode nil))
 

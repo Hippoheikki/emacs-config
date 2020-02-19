@@ -18,8 +18,12 @@
 
 (use-package dashboard
   :custom
-  (dashboard-startup-banner 'logo)
-  (dashboard-items '((projects . 5)))
+  (dashboard-startup-banner '2)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-center-content t)
+  (dashboard-items '((projects . 8)
+                     (recents . 5)))
   :config
   (dashboard-setup-startup-hook))
 
@@ -182,6 +186,7 @@
 
 (use-package company
   :hook (prog-mode . company-mode)
+  :bind ("<backtab>" . company-complete)
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0)
@@ -294,13 +299,6 @@
 
 (use-package rainbow-mode
   :hook (web-mode . rainbow-mode))
-
-(use-package solaire-mode
-  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
-         (minibuffer-setup . solaire-mode-in-minibuffer))
-  :config
-  (solaire-global-mode +1)
-  (solaire-mode-swap-bg))
 
 (use-package beacon
   :config
