@@ -223,13 +223,6 @@
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
-  :init
-  (add-hook 'lsp-ui-mode-hook
-            (defun +lsp-init-ui-flycheck ()
-              "Sets up flycheck-mode."
-              (require 'flycheck nil t)
-              (require 'lsp-ui-flycheck)
-              (lsp-ui-flycheck-enable t)))
   :custom
   (lsp-ui-doc-enable nil)
   (lsp-ui-sideline-enable nil)
@@ -238,10 +231,7 @@
 
 (use-package lsp-ivy)
 
-(use-package typescript-mode
-  :after (company flycheck lsp-ui)
-  :config
-  (flycheck-add-next-checker 'lsp-ui 'typescript-tslint))
+(use-package typescript-mode)
 
 (use-package company-lsp
   :commands company-lsp
@@ -251,7 +241,6 @@
 (use-package flycheck
   :custom
   (flycheck-display-errors 0.25)
-  (flycheck-check-syntax-automatically '(save mode-enabled))
   :config
   (global-flycheck-mode +1))
 
