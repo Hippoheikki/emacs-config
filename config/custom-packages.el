@@ -122,34 +122,10 @@
                            (swiper                . ivy--regex-plus)
                            (t                     . ivy--regex-fuzzy))))
 
-(use-package ivy-rich
-    :preface
-    (defun ivy-rich-switch-buffer-icon (candidate)
-      (with-current-buffer
-          (get-buffer candidate)
-        (all-the-icons-icon-for-mode major-mode)))
-    :init
-    (setq ivy-rich-display-transformers-list ; max column width sum = (ivy-poframe-width - 1)
-          '(ivy-switch-buffer
-            (:columns
-             ((ivy-rich-switch-buffer-icon (:width 5))
-              (ivy-rich-candidate (:width 30))
-              (ivy-rich-switch-buffer-project (:width 15 :face success))
-              (ivy-rich-switch-buffer-major-mode (:width 13 :face warning)))
-             :predicate
-             (lambda (cand) (get-buffer cand)))
-            counsel-M-x
-            (:columns
-             ((counsel-M-x-transformer (:width 35))
-              (ivy-rich-counsel-function-docstring (:width 44 :face font-lock-doc-face))))))
-    :config
-    (ivy-rich-mode +1)
-    (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
-
 (use-package ivy-posframe
   :after ivy
   :custom
-  (ivy-posframe-width 80)
+  (ivy-posframe-width 100)
   :config
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
   (setq ivy-posframe-parameters
