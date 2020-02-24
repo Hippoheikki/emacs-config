@@ -150,12 +150,13 @@
 
 (use-package ivy-posframe
   :after ivy
+  :custom
+  (ivy-posframe-width 80)
   :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center))
-        ivy-posframe-height-alist '((swiper . 30)
-                                    (t . 10))
-        ivy-posframe-parameters '((internal-border-width . 10)))
-  (setq ivy-posframe-width 80)
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+  (setq ivy-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
   (ivy-posframe-mode +1))
 
 (use-package swiper
@@ -219,7 +220,11 @@
   :commands lsp
   :custom
   (lsp-prefer-flymake nil)
-  (lsp-keep-workspace-alive nil))
+  (lsp-keep-workspace-alive nil)
+  (lsp-signature-auto-activate nil)
+  (read-process-output-max (* 1024 1024)) ;; 1mb
+  (lsp-idle-delay 0.5)
+  (lsp-prefer-capf t))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
