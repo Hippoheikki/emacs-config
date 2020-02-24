@@ -197,8 +197,7 @@
   (lsp-keep-workspace-alive nil)
   (lsp-signature-auto-activate nil)
   (read-process-output-max (* 1024 1024)) ;; 1mb
-  (lsp-idle-delay 0.5)
-  (lsp-prefer-capf t))
+  (lsp-idle-delay 0.5))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
@@ -215,7 +214,9 @@
 (use-package company-lsp
   :commands company-lsp
   :custom
-  (company-lsp-cache-candidates 'auto))
+  (company-lsp-cache-candidates 'auto)
+  :config
+  (push 'company-lsp company-backends))
 
 (use-package flycheck
   :custom
