@@ -7,14 +7,12 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-(use-package kaolin-themes
-  :custom
-  (kaolin-themes-underline-wave nil)
-  (kaolin-themes-hl-line-colored t)
-  (kaolin-themes-distinct-fringe t)
-  (kaolin-themes-distinct-company-scrollbar t)
+(use-package doom-themes
   :config
-  (load-theme 'kaolin-temple t))
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-material t))
 
 (use-package dashboard
   :custom
