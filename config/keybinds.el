@@ -12,6 +12,11 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
+(defun fp/switch-to-previous-buffer ()
+  "Switch to the previous buffer."
+  (interactive)
+  (switch-to-buffer nil))
+
 (use-package which-key
   :config
   (setq which-key-idle-delay 0.5)
@@ -30,16 +35,16 @@
    ;; File actions
    "f"  '(:ignore t :which-key "Files")
    "ff" '(counsel-find-file :which-key "Find file")
-   "fp" '(projectile-find-file :which-key "Find file in project")
+   "fp" '(counsel-projectile-find-file :which-key "Find file in project")
    "fs" '(save-buffer :which-key "Save buffer")
    "fS" '(save-some-buffers :which-key "Save all buffers")
 
    ;; Projectile actions
    "p"  '(:ignore t :which-key "Project management")
-   "pp" '(projectile-switch-project :which-key "Switch project")
-   "pf" '(projectile-find-file :which-key "Find file in project")
+   "pp" '(counsel-projectile-switch-project :which-key "Switch project")
+   "pf" '(counsel-projectile-find-file :which-key "Find file in project")
    "pk" '(projectile-kill-buffers :which-key "Kill project buffers")
-   "ps" '(projectile-ripgrep :which-key "Search project")
+   "ps" '(counsel-projectile-rg :which-key "Search project")
    "pi" '(projectile-invalidate-cache :which-key "Invalidate cache")
    "pa" '(projectile-add-known-project :which-key "Add project")
    "pr" '(projectile-remove-known-project :which-key "Remove project")
@@ -47,7 +52,7 @@
    ;; Search actions
    "s"  '(:ignore t :which-key "Search")
    "ss" '(swiper :which-key "Swiper (ivy)")
-   "sp" '(projectile-ripgrep :which-key "Search project")
+   "sp" '(counsel-projectile-rg :which-key "Search project")
 
    ;; Dired actions
    "d"  '(:ignore t :which-key "Dired")
@@ -65,6 +70,7 @@
    "bk" '(:ignore t :which-key "Buffer kill actions")
    "bkc" '(kill-current-buffer :which-key "Kill buffer")
    "bko" '(fp/kill-other-buffers :which-key "Kill all other buffers")
+   "ba" '(fp/switch-to-previous-buffer :which-key "Switch to previous buffer")
 
    ;; Window actions
    "w"  '(:ignore t :which-key "Window management")
@@ -87,6 +93,7 @@
    "cs" '(ivy-lsp-workspace-symbol :which-key "Find symbol")
    "cS" '(ivy-lsp-global-workspace-symbol :which-key "Find symbol (global)")
    "cf" '(format-all-buffer :which-key "Format buffer")
+   "cc" '(goto-last-change :which-key "Goto last change")
 
    ;; Revert/reload actions
    "r"  '(:ignore t :which-key "Revert/Reload actions")
