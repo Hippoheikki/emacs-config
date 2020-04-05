@@ -190,6 +190,7 @@
 (use-package lsp-mode
   :hook ((js-mode         ; ts-ls (tsserver wrapper)
           typescript-mode ; ts-ls (tsserver wrapper)
+          lua-mode
           ) . lsp)
   :commands lsp
   :custom
@@ -216,7 +217,8 @@
   :custom
   (company-lsp-cache-candidates 'auto)
   :config
-  (push 'company-lsp company-backends))
+  (push 'company-lsp company-backends)
+  (add-to-list 'company-lsp-filter-candidates '(lsp-emmy-lua . t)))
 
 (use-package flycheck
   :custom
@@ -242,6 +244,8 @@
   :mode (("\\.html?\\'" . web-mode)
          ("\\.css\\'"   . web-mode)
          ("\\.json\\'"  . web-mode)))
+
+(use-package lua-mode)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
