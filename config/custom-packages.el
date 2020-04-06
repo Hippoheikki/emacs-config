@@ -247,6 +247,8 @@
 
 (use-package lua-mode)
 
+(use-package yaml-mode)
+
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :custom
