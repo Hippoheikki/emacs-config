@@ -2,43 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
+;; Editor functionality related pacakges
 (use-package exec-path-from-shell
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
-
-(use-package doom-themes
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-material t))
-
-(use-package dashboard
-  :custom
-  (dashboard-startup-banner '2)
-  (dashboard-set-heading-icons t)
-  (dashboard-set-file-icons t)
-  (dashboard-center-content t)
-  (dashboard-items '((projects . 8)
-                     (recents . 5)))
-  :config
-  (dashboard-setup-startup-hook))
-
-(use-package centaur-tabs
-  :demand
-  :hook
-  (dired-mode . centaur-tabs-local-mode)
-  :custom
-  (centaur-tabs-height 32)
-  (centaur-tabs-gray-out-icons 'buffer)
-  (centaur-tabs-set-icons t)
-  (centaur-tabs-set-bar 'under)
-  (x-underline-at-descent-line t)
-  (centaur-tabs-style "bar")
-  :config
-  (centaur-tabs-headline-match)
-  (centaur-tabs-mode t))
 
 (use-package evil
   :init
@@ -75,21 +43,6 @@
   :config
   (add-hook 'with-editor-mode-hook #'evil-insert-state))
 
-(use-package git-gutter
-  :custom
-  (git-gutter:update-interval 0.05))
-
-(use-package git-gutter-fringe
-  :config
-  (global-git-gutter-mode +1)
-  (setq-default fringes-outside-margins t)
-  (define-fringe-bitmap 'git-gutter-fr:added [224]
-    nil nil '(center repeated))
-  (define-fringe-bitmap 'git-gutter-fr:modified [224]
-    nil nil '(center repeated))
-  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
-    nil nil 'bottom))
-
 (use-package projectile
   :config
   (setq projectile-sort-order 'recentf
@@ -122,6 +75,103 @@
                            (swiper                . ivy--regex-plus)
                            (t                     . ivy--regex-fuzzy))))
 
+(use-package swiper
+  :after ivy
+  :custom
+  (swiper-action-recenter t)
+  (swiper-goto-start-of-match t))
+
+(use-package company
+  :hook (prog-mode . company-mode)
+  :bind ("<backtab>" . company-complete)
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0)
+  (company-selection-wrap-around t)
+  (company-tooltip-align-annotations t)
+  (company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
+                       company-echo-metadata-frontend))
+  :config
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "<return>") nil)
+    (define-key company-active-map (kbd "RET") nil)
+    (define-key company-active-map (kbd "SPC") nil)))
+
+(use-package format-all)
+
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
+(use-package default-text-scale)
+
+
+;; Editor visual related packages
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-material t))
+
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :custom
+  (doom-modeline-height 25)
+  (doom-modeline-bar-width 3)
+  (doom-modeline-buffer-file-name-style 'relative-to-project)
+  (doom-modeline-icon t)
+  (doom-modeline-buffer-state-icon nil)
+  (doom-modeline-modal-icon nil)
+  :config
+  (doom-modeline-def-modeline 'simple
+    '(bar modals buffer-info buffer-position)
+    '(misc-info lsp buffer-encoding major-mode vcs))
+  (defun fp/setup-custom-doom-modeline ()
+    (doom-modeline-set-modeline 'simple 'default))
+    (add-hook 'doom-modeline-mode-hook 'fp/setup-custom-doom-modeline))
+
+(use-package dashboard
+  :custom
+  (dashboard-startup-banner '2)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-center-content t)
+  (dashboard-items '((projects . 8)
+                     (recents . 5)))
+  :config
+  (dashboard-setup-startup-hook))
+
+(use-package centaur-tabs
+  :demand
+  :hook
+  (dired-mode . centaur-tabs-local-mode)
+  :custom
+  (centaur-tabs-height 32)
+  (centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-set-bar 'under)
+  (x-underline-at-descent-line t)
+  (centaur-tabs-style "bar")
+  :config
+  (centaur-tabs-headline-match)
+  (centaur-tabs-mode t))
+
+(use-package git-gutter
+  :custom
+  (git-gutter:update-interval 0.05))
+
+(use-package git-gutter-fringe
+  :config
+  (global-git-gutter-mode +1)
+  (setq-default fringes-outside-margins t)
+  (define-fringe-bitmap 'git-gutter-fr:added [224]
+    nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224]
+    nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
+    nil nil 'bottom))
+
 (use-package ivy-posframe
   :after ivy
   :custom
@@ -132,12 +182,6 @@
         '((left-fringe . 8)
           (right-fringe . 8)))
   (ivy-posframe-mode +1))
-
-(use-package swiper
-  :after ivy
-  :custom
-  (swiper-action-recenter t)
-  (swiper-goto-start-of-match t))
 
 (use-package prescient
   :custom
@@ -159,22 +203,6 @@
   :config
   (ivy-prescient-mode +1))
 
-(use-package company
-  :hook (prog-mode . company-mode)
-  :bind ("<backtab>" . company-complete)
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0)
-  (company-selection-wrap-around t)
-  (company-tooltip-align-annotations t)
-  (company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
-                       company-echo-metadata-frontend))
-  :config
-  (with-eval-after-load 'company
-    (define-key company-active-map (kbd "<return>") nil)
-    (define-key company-active-map (kbd "RET") nil)
-    (define-key company-active-map (kbd "SPC") nil)))
-
 (use-package company-posframe
   :custom
   (company-posframe-show-metadata nil)
@@ -187,6 +215,24 @@
   :config
   (company-prescient-mode +1))
 
+(use-package rainbow-mode
+  :hook (web-mode . rainbow-mode))
+
+(use-package beacon
+  :config
+  (beacon-mode 1))
+
+(use-package all-the-icons
+  :config (setq all-the-icons-scale-factor 1.0))
+
+(use-package all-the-icons-ivy
+  :hook (after-init . all-the-icons-ivy-setup))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+
+;; Packages related to language support
 (use-package lsp-mode
   :hook ((js-mode         ; ts-ls (tsserver wrapper)
           typescript-mode ; ts-ls (tsserver wrapper)
@@ -209,8 +255,6 @@
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 (use-package lsp-ivy)
-
-(use-package typescript-mode)
 
 (use-package company-lsp
   :commands company-lsp
@@ -247,48 +291,9 @@
 
 (use-package lua-mode)
 
+(use-package typescript-mode)
+
 (use-package yaml-mode)
-
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-mode)
-  :custom
-  (doom-modeline-height 25)
-  (doom-modeline-bar-width 3)
-  (doom-modeline-buffer-file-name-style 'relative-to-project)
-  (doom-modeline-icon t)
-  (doom-modeline-buffer-state-icon nil)
-  (doom-modeline-modal-icon nil)
-  :config
-  (doom-modeline-def-modeline 'simple
-    '(bar modals buffer-info buffer-position)
-    '(misc-info lsp buffer-encoding major-mode vcs))
-  (defun fp/setup-custom-doom-modeline ()
-    (doom-modeline-set-modeline 'simple 'default))
-    (add-hook 'doom-modeline-mode-hook 'fp/setup-custom-doom-modeline))
-
-(use-package format-all)
-
-(use-package editorconfig
-  :config
-  (editorconfig-mode 1))
-
-(use-package rainbow-mode
-  :hook (web-mode . rainbow-mode))
-
-(use-package beacon
-  :config
-  (beacon-mode 1))
-
-(use-package all-the-icons
-  :config (setq all-the-icons-scale-factor 1.0))
-
-(use-package all-the-icons-ivy
-  :hook (after-init . all-the-icons-ivy-setup))
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package default-text-scale)
 
 (provide 'custom-packages)
 ;;; custom-packages.el ends here
