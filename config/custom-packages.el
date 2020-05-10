@@ -295,5 +295,7 @@
 
 (use-package yaml-mode)
 
+(use-package rustic)
+
 (provide 'custom-packages)
 ;;; custom-packages.el ends here
