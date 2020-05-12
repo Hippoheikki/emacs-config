@@ -1,10 +1,26 @@
 ;;; startup --- Startup settings and built in package setup
 ;;; Commentary:
 ;;; Code:
+(defvar file-name-handler-alist-original file-name-handler-alist)
 
-(when (memq window-system '(mac ns x))
-  (setq mac-option-modifier 'meta)
-  (setq mac-command-modifier 'super))
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil
+      site-run-file nil)
+
+(defvar fp/gc-cons-threshold 100000000)
+
+(add-hook 'emacs-startup-hook ; hook run after loading init files
+          #'(lambda ()
+              (setq gc-cons-threshold fp/gc-cons-threshold
+                    gc-cons-percentage 0.1
+                    file-name-handler-alist file-name-handler-alist-original)))
+(add-hook 'minibuffer-setup-hook #'(lambda ()
+                                     (setq gc-cons-threshold most-positive-fixnum)))
+(add-hook 'minibuffer-exit-hook #'(lambda ()
+                                    (garbage-collect)
+                                    (setq gc-cons-threshold fp/gc-cons-threshold)))
+
 
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
@@ -21,8 +37,6 @@
         use-package-expand-minimally t))
 
 (use-package emacs
-  :preface
-  (defvar fp/gc-threshold 100000000)
   :config
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -35,9 +49,7 @@
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
   (setq create-lockfiles nil)
-  (setq ring-bell-function 'ignore
-        gc-cons-threshold fp/gc-threshold
-        gc-cons-percentage 0.1)
+  (setq ring-bell-function 'ignore)
   (setq-default line-spacing 5
                 indent-tabs-mode nil))
 
