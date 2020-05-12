@@ -29,7 +29,6 @@
 (use-package evil-collection
   :after evil
   :config
-  (setq evil-collection-company-use-tng nil)
   (evil-collection-init))
 
 (use-package evil-commentary
@@ -156,6 +155,12 @@
   :config
   (centaur-tabs-headline-match)
   (centaur-tabs-mode t))
+
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :config
+  (setq dired-sidebar-theme 'icons))
 
 (use-package git-gutter
   :custom

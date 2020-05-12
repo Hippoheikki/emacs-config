@@ -58,6 +58,7 @@
    "d"  '(:ignore t :which-key "Dired")
    "dd" '(dired :which-key "Open dired")
    "dj" '(dired-jump :which-key "Jump to file in dired")
+   "db" '(dired-sidebar-toggle-sidebar :which-key "Toggle sidebar")
 
    ;; Git actions
    "g"  '(:ignore t :which-key "Git")
