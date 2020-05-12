@@ -28,8 +28,6 @@
   (menu-bar-mode -1)
   (global-hl-line-mode t)
 
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
   (fset 'yes-or-no-p 'y-or-n-p)
 
   (setq backup-directory-alist
@@ -110,8 +108,20 @@
   :custom
   (initial-frame-alist '((fullscreen . maximized)))
   (ns-use-proxy-icon nil)
-  (frame-title-format nil)
   :config
+  (defun frame-title-format ()
+    "Return frame title with current project name, where applicable."
+    (concat
+     "emacs - "
+     (when (and (bound-and-true-p projectile-mode)
+                (projectile-project-p))
+       (format "[%s] - " (projectile-project-name)))
+     (let ((file buffer-file-name))
+       (if file
+           (abbreviate-file-name file)
+         "%b"))))
+
+  (setq-default frame-title-format '((:eval (frame-title-format))))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
