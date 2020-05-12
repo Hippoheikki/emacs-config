@@ -1,6 +1,7 @@
 ;;; startup --- Startup settings and built in package setup
 ;;; Commentary:
 ;;; Code:
+
 (defvar file-name-handler-alist-original file-name-handler-alist)
 
 (setq gc-cons-threshold most-positive-fixnum
@@ -21,7 +22,6 @@
                                     (garbage-collect)
                                     (setq gc-cons-threshold fp/gc-cons-threshold)))
 
-
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -37,37 +37,53 @@
         use-package-expand-minimally t))
 
 (use-package emacs
+  :preface
+  (defvar fp/indent-width 2)
   :config
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (global-hl-line-mode t)
-
-  (fset 'yes-or-no-p 'y-or-n-p)
-
+  (setq ring-bell-function 'ignore)
+  (setq default-directory "~/")
+  (setq frame-resize-pixelwise t)
+  (setq scroll-conservatively 10000)
+  (setq scroll-preserve-screen-position t)
+  (setq auto-window-vscroll nil)
+  (setq load-prefer-newer t)
   (setq backup-directory-alist
         `(("." . ,(concat user-emacs-directory "backups"))))
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
-  (setq create-lockfiles nil)
-  (setq ring-bell-function 'ignore)
-  (setq-default line-spacing 5
-                indent-tabs-mode nil))
+  (setq-default line-spacing 3)
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width fp/indent-width)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (global-hl-line-mode t))
 
 (use-package "startup"
   :ensure nil
-  :custom
-  (inhibit-startup-screen t))
+  :config
+  (setq inhibit-startup-screen t))
 
 (use-package cus-edit
   :ensure nil
-  :custom
-  (custom-file "~/.emacs.d/to-be-dumped.el"))
+  :config
+  (setq custom-file "~/.emacs.d/to-be-dumped.el"))
+
+(use-package scroll-bar
+  :ensure nil
+  :config
+  (scroll-bar-mode -1))
 
 (use-package simple
   :ensure nil
   :config
   (line-number-mode +1)
   (column-number-mode +1))
+
+(use-package "window"
+  :ensure nil
+  :config
+  (setq split-width-threshold 140))
 
 (use-package delsel
   :ensure nil
@@ -76,37 +92,31 @@
 
 (use-package files
   :ensure nil
-  :custom
-  (confirm-kill-processes nil)
-  (make-backup-files nil))
+  :config
+  (setq confirm-kill-processes nil)
+  (setq make-backup-files nil))
 
 (use-package autorevert
   :ensure nil
-  :custom
-  (auto-revert-interval 2)
-  (auto-revert-check-vc-info t)
-  (global-auto-revert-non-file-buffers t)
-  (auto-revert-verbose nil)
   :config
+  (setq auto-revert-interval 2)
+  (setq auto-revert-check-vc-info t)
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
   (global-auto-revert-mode +1))
-
-(use-package eldoc
-  :ensure nil
-  :custom
-  (eldoc-idle-delay 0.4))
 
 (use-package cc-vars
   :ensure nil
-  :custom
-  (c-default-style '((java-mode . "java")
-                     (awk-mode  . "awk")
-                     (other     . "k&r"))))
+  :config
+  (setq c-default-style '((java-mode . "java")
+                          (awk-mode  . "awk")
+                          (other     . "k&r"))))
 
 (use-package mwheel
   :ensure nil
-  :custom
-  (mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-  (mouse-wheel-progressive-speed nil))
+  :config
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  (setq mouse-wheel-progressive-speed nil))
 
 (use-package paren
   :ensure nil
@@ -117,9 +127,6 @@
 
 (use-package frame
   :ensure nil
-  :custom
-  (initial-frame-alist '((fullscreen . maximized)))
-  (ns-use-proxy-icon nil)
   :config
   (defun frame-title-format ()
     "Return frame title with current project name, where applicable."
@@ -134,8 +141,11 @@
          "%b"))))
 
   (setq-default frame-title-format '((:eval (frame-title-format))))
+  (setq initial-frame-alist '((fullscreen . maximized)))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (set-frame-parameter (selected-frame) 'alpha 85)
+  (add-to-list 'default-frame-alist '(alpha . 85))
 
   (blink-cursor-mode -1)
 
@@ -155,6 +165,12 @@
 (use-package whitespace
   :ensure nil
   :hook (before-save . whitespace-cleanup))
+
+(use-package display-line-numbers
+  :ensure nil
+  :hook (prog-mode . display-line-numbers-mode)
+  :config
+  (setq-default display-line-numbers-width 3))
 
 (use-package dired
   :ensure nil
