@@ -85,7 +85,6 @@
 
 (use-package company
   :hook (prog-mode . company-mode)
-  :bind ("<backtab>" . company-complete)
   :config
   (setq company-minimum-prefix-length 1)
   (setq company-idle-delay 0)
@@ -94,6 +93,8 @@
   (setq company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
                             company-echo-metadata-frontend))
   (with-eval-after-load 'company
+    (define-key company-active-map (kbd "TAB") 'company-complete-selection)
+    (define-key company-active-map [tab] 'company-complete-selection)
     (define-key company-active-map (kbd "<return>") nil)
     (define-key company-active-map (kbd "RET") nil)
     (define-key company-active-map (kbd "SPC") nil)))
