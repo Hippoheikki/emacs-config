@@ -124,6 +124,11 @@
   :straight t
   :hook (web-mode . rainbow-mode))
 
+(use-package color-identifiers-mode
+  :straight t
+  :config
+  (add-hook 'after-init-hook 'global-color-identifiers-mode))
+
 (use-package beacon
   :straight t
   :config
