@@ -91,6 +91,12 @@
                      (recents . 5)))
   (dashboard-setup-startup-hook))
 
+(use-package awesome-tab
+  :straight (awesome-tab :type git :host github :repo "manateelazycat/awesome-tab")
+  :config
+  (setq awesome-tab-height 100)
+  (awesome-tab-mode t))
+
 (use-package dired-sidebar
   :straight t
   :commands (dired-sidebar-toggle-sidebar)
