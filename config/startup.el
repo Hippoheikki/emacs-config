@@ -62,6 +62,7 @@
 (use-package autorevert
   :ensure nil
   :config
+  (setq auto-revert-check-vc-info t)
   (global-auto-revert-mode))
 
 (use-package mwheel
