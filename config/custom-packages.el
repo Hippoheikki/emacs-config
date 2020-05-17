@@ -131,6 +131,11 @@
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
     nil nil 'bottom))
 
+(use-package ample-theme
+  :straight t
+  :config
+  (load-theme 'ample-light))
+
 (use-package rainbow-mode
   :straight t
   :hook (web-mode . rainbow-mode))
