@@ -134,7 +134,7 @@
 (use-package ample-theme
   :straight t
   :config
-  (load-theme 'ample-light))
+  (load-theme 'ample-light t ))
 
 (use-package rainbow-mode
   :straight t
