@@ -73,6 +73,9 @@
    "cr" '(xref-find-references :which-key "Find references")
    "cf" '(format-all-buffer :which-key "Format buffer")
    "cc" '(goto-last-change :which-key "Goto last change")
+   "cs" '(xref-find-apropos :which-key "Find symbol in workspace")
+   "cS" '(helm-lsp-global-workspace-symbol :which-key "Find symbol in all workspaces")
+   "ca" '(helm-lsp-code-actions :which-key "LSP code actions")
 
    ;; Search actions
    "s"  '(:ignore t :which-key "Search")

@@ -58,6 +58,9 @@
 (use-package swiper-helm
   :straight t)
 
+(use-package helm-lsp
+  :straight t)
+
 (use-package company
   :straight t
   :hook (prog-mode . company-mode)
@@ -74,6 +77,11 @@
     (define-key company-active-map (kbd "<return>") nil)
     (define-key company-active-map (kbd "RET") nil)
     (define-key company-active-map (kbd "SPC") nil)))
+
+(use-package company-lsp
+  :straight t
+  :config
+  (push 'company-lsp company-backends))
 
 (use-package editorconfig
   :straight t
@@ -207,7 +215,8 @@
         lsp-clients-typescript-plugins
         (vector
          (list :name "typescript-tslint-plugin"
-               :location "<home>/.nvm/versions/node/v13.12.0/lib/node_modules/typescript-tslint-plugin/"))))
+               :location "<home>/.nvm/versions/node/v13.12.0/lib/node_modules/typescript-tslint-plugin/")))
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 
 (use-package lsp-ui
   :straight t
