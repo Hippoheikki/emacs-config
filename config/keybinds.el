@@ -34,6 +34,11 @@
    "fs" '(save-buffer :which-key "Save buffer")
    "fS" '(save-some-buffers :which-key "Save all buffers")
 
+   ;; Buffer actions
+   "b"  '(:ignore t :which-key "Buffers")
+   "bb" '(helm-buffers-list :which-key "Buffer list")
+   "bk" '(kill-current-buffer :which-key "Kill buffer")
+
    ;; Dired actions
    "d"  '(:ignore t :which-key "Dired")
    "dd" '(dired :which-key "Open dired")
@@ -66,8 +71,6 @@
    "c"  '(:ignore t :which-key "Code actions")
    "cd" '(xref-find-definitions :which-key "Find definitions")
    "cr" '(xref-find-references :which-key "Find references")
-   ;; "cs" '(ivy-lsp-workspace-symbol :which-key "Find symbol")
-   ;; "cS" '(ivy-lsp-global-workspace-symbol :which-key "Find symbol (global)")
    "cf" '(format-all-buffer :which-key "Format buffer")
    "cc" '(goto-last-change :which-key "Goto last change")
 
