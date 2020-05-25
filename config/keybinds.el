@@ -93,6 +93,7 @@
    ;; Toggle actions
    "t"  '(:ignore t :which-key "Toggle/settings")
    "tw" '(global-whitespace-mode :which-key "Toggle whitespace mode")
+   "ts" '(dired-sidebar-toggle-sidebar :which-key "Toggle dired sidebar")
 
    ))
 
