@@ -123,7 +123,8 @@
   :ensure nil
   :hook (prog-mode . display-line-numbers-mode)
   :config
-  (setq-default display-line-numbers-width 3))
+  (setq-default display-line-numbers-width 3)
+  (setq-default display-line-numbers-type 'relative))
 
 (use-package dired
   :ensure nil
