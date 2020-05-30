@@ -64,9 +64,6 @@
    "wk" '(evil-window-up :which-key "Move to up window")
    "wl" '(evil-window-right :which-key "Move to right window")
 
-   "w <right>" '(awesome-tab-forward :which-key "Move to next tab")
-   "w <left>"  '(awesome-tab-backward :which-key "Move to previous tab")
-
    ;; Code actions
    "c"  '(:ignore t :which-key "Code actions")
    "cd" '(xref-find-definitions :which-key "Find definitions")
@@ -90,11 +87,12 @@
    "q"  '(:ignore t :which-key "Quit actions")
    "qq" '(kill-emacs :which-key "Kill emacs")
 
-   ;; Toggle actions
+   ;; Toggle actions / tab actions
    "t"  '(:ignore t :which-key "Toggle/settings")
    "tw" '(global-whitespace-mode :which-key "Toggle whitespace mode")
    "ts" '(dired-sidebar-toggle-sidebar :which-key "Toggle dired sidebar")
-
+   "tl" '(awesome-tab-forward :which-key "Move to next tab")
+   "th" '(awesome-tab-backward :which-key "Move to previous tab")
    ))
 
 (provide 'keybinds)
