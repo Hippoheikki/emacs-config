@@ -88,6 +88,11 @@
   :config
   (editorconfig-mode 1))
 
+(use-package gruvbox-theme
+  :straight t
+  :config
+  (load-theme 'gruvbox-dark-soft t))
+
 (use-package dashboard
   :straight t
   :config
@@ -139,11 +144,6 @@
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
     nil nil 'bottom))
 
-(use-package ample-theme
-  :straight t
-  :config
-  (load-theme 'ample-light t ))
-
 (use-package rainbow-mode
   :straight t
   :hook (web-mode . rainbow-mode))
@@ -184,8 +184,7 @@
 (use-package flycheck
   :straight t
   :config
-  (setq flycheck-display-errors-delay 0.25)
-  (global-flycheck-mode))
+  (setq flycheck-display-errors-delay 0.25))
 
 (use-package flycheck-posframe
   :straight t
