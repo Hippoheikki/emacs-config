@@ -94,9 +94,9 @@
          "%b"))))
 
   (setq-default frame-title-format '((:eval (frame-title-format))))
-  (setq initial-frame-alist '((fullscreen . maximized)))
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  ;; (setq initial-frame-alist '((fullscreen . maximized)))
+  ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  ;; (add-to-list 'default-frame-alist '(ns-appearance . dark))
   ;; (set-frame-parameter (selected-frame) 'alpha 85)
   ;; (add-to-list 'default-frame-alist '(alpha . 85))
 
