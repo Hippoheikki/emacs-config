@@ -102,9 +102,9 @@
 
   (blink-cursor-mode -1)
 
-  (when (member "Fira Code" (font-family-list))
+  (when (member "Code New Roman" (font-family-list))
     (message "Font exists on system")
-    (set-frame-font "Fira Code" t t)))
+    (set-frame-font "Code New Roman" t t)))
 
 ;; (use-package ediff
 ;;   :ensure nil
