@@ -2,6 +2,27 @@
 ;;; Commentary:
 ;;; Code:
 
+(defvar file-name-handler-alist-original file-name-handler-alist)
+
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil
+      site-run-file nil)
+
+(defvar fp/gc-cons-threshold 100000000)
+
+(add-hook 'emacs-startup-hook ; hook run after loading init files
+          #'(lambda ()
+              (setq gc-cons-threshold fp/gc-cons-threshold
+                    gc-cons-percentage 0.1
+                    file-name-handler-alist file-name-handler-alist-original)))
+(add-hook 'minibuffer-setup-hook #'(lambda ()
+                                     (setq gc-cons-threshold most-positive-fixnum)))
+(add-hook 'minibuffer-exit-hook #'(lambda ()
+                                    (garbage-collect)
+                                    (setq gc-cons-threshold fp/gc-cons-threshold)))
+
+
 ;; Straight.el initialization
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -20,10 +41,10 @@
 (straight-use-package 'git)
 
 (use-package emacs
-  :straight t
+  :ensure nil
   :preface
   (defvar fp/indent-width 2)
-  :config
+  :init
   (setq default-directory "~/")
   (setq frame-resize-pixelwise t)
   (setq load-prefer-newer t)
@@ -34,18 +55,19 @@
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width fp/indent-width)
   (fset 'yes-or-no-p 'y-or-n-p)
+  :config
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (global-hl-line-mode t))
 
 (use-package "startup"
   :ensure nil
-  :config
+  :init
   (setq inhibit-startup-screen t))
 
 (use-package cus-edit
   :ensure nil
-  :config
+  :init
   (setq custom-file "~/.emacs.d/to-be-dumped.el"))
 
 (use-package scroll-bar
@@ -61,13 +83,14 @@
 
 (use-package autorevert
   :ensure nil
-  :config
+  :init
   (setq auto-revert-check-vc-info t)
+  :config
   (global-auto-revert-mode))
 
 (use-package mwheel
   :ensure nil
-  :config
+  :init
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
   (setq mouse-wheel-progressive-speed nil))
 
@@ -80,7 +103,7 @@
 
 (use-package frame
   :ensure nil
-  :config
+  :init
   (defun frame-title-format ()
     "Return frame title with current project name, where applicable."
     (concat
@@ -97,19 +120,14 @@
   ;; (setq initial-frame-alist '((fullscreen . maximized)))
   ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   ;; (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  ;; (set-frame-parameter (selected-frame) 'alpha 85)
-  ;; (add-to-list 'default-frame-alist '(alpha . 85))
 
-  (blink-cursor-mode -1)
 
   (when (member "Code New Roman" (font-family-list))
     (message "Font exists on system")
-    (set-frame-font "Code New Roman" t t)))
+    (set-frame-font "Code New Roman" t t))
 
-;; (use-package ediff
-;;   :ensure nil
-;;   :custom
-;;   (ediff-split-window-function #'split-window-horizontally))
+  :config
+  (blink-cursor-mode -1))
 
 (use-package elec-pair
   :ensure nil
@@ -122,14 +140,14 @@
 (use-package display-line-numbers
   :ensure nil
   :hook (prog-mode . display-line-numbers-mode)
-  :config
+  :init
   (setq-default display-line-numbers-width 3)
   (setq-default display-line-numbers-type 'relative))
 
 (use-package dired
   :ensure nil
-  :custom
-  (delete-by-moving-to-trash t)
+  :init
+  (setq delete-by-moving-to-trash t)
   :config
   (put 'dired-find-alternate-file 'disabled nil))
 
