@@ -15,6 +15,7 @@
   :config
   (define-key evil-motion-state-map (kbd "TAB") nil)
   (add-to-list 'evil-emacs-state-modes 'magit-mode)
+  (add-to-list 'evil-emacs-state-modes 'sidebar-mode)
   (evil-mode))
 
 (use-package evil-surround
@@ -44,6 +45,7 @@
   :init
   (setq projectile-sort-order 'recentf
         projectile-indexing-method 'hybrid)
+  (setq projectile-git-submodule-command nil)
   :config
   (projectile-mode))
 
@@ -81,8 +83,11 @@
 
 (use-package company-lsp
   :straight t
+  :init
+  (setq company-lsp-cache-candidates nil)
+  (setq company-lsp-enable-recompletion t)
   :config
-  (push 'company-lsp company-backends))
+  (add-to-list 'company-backends #'company-lsp))
 
 (use-package editorconfig
   :straight t
@@ -125,11 +130,10 @@
   :config
   (telephone-line-mode t))
 
-(use-package dired-sidebar
+(use-package neotree
   :straight t
-  :commands (dired-sidebar-toggle-sidebar)
   :init
-  (setq dired-sidebar-theme 'icons))
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (use-package git-gutter
   :straight t
@@ -219,7 +223,8 @@
         (vector
          (list :name "typescript-tslint-plugin"
                :location "<home>/.nvm/versions/node/v13.12.0/lib/node_modules/typescript-tslint-plugin/")))
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
+  (add-to-list 'company-lsp-filter-candidates '(lsp-emmy-lua . t)))
 
 (use-package lsp-ui
   :straight t

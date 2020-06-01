@@ -45,6 +45,7 @@
   :preface
   (defvar fp/indent-width 2)
   :init
+  (setq shell-file-name "/bin/bash")
   (setq default-directory "~/")
   (setq frame-resize-pixelwise t)
   (setq load-prefer-newer t)

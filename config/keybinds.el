@@ -90,7 +90,7 @@
    ;; Toggle actions / tab actions
    "t"  '(:ignore t :which-key "Toggle/settings")
    "tw" '(global-whitespace-mode :which-key "Toggle whitespace mode")
-   "ts" '(dired-sidebar-toggle-sidebar :which-key "Toggle dired sidebar")
+   "ts" '(neotree-toggle :which-key "Toggle dired sidebar")
    "tl" '(awesome-tab-forward :which-key "Move to next tab")
    "th" '(awesome-tab-backward :which-key "Move to previous tab")
    ))
