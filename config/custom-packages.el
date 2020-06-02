@@ -133,6 +133,8 @@
 (use-package neotree
   :straight t
   :init
+  (setq neo-autorefresh nil)
+  (setq neo-smart-open t)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (use-package git-gutter
